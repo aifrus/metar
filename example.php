@@ -6,3 +6,5 @@ use Aifrus\METAR\METAR;
 
 $response = METAR::fetch("KPWM");
 print_r($response);
+$response = METAR::fetch("LPLA");
+print_r($response);
