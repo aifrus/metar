@@ -17,6 +17,14 @@ class Timestamp
         $this->day = (int) substr($timestampString, 0, 2);
         $this->hour = (int) substr($timestampString, 2, 2);
         $this->minute = (int) substr($timestampString, 4, 2);
+        $this->validate();
+    }
+
+    public function validate(): void
+    {
+        if ($this->day < 1 || $this->day > 31) throw new METARException('Invalid day');
+        if ($this->hour < 0 || $this->hour > 23) throw new METARException('Invalid hour');
+        if ($this->minute < 0 || $this->minute > 59) throw new METARException('Invalid minute');
     }
 
     public static function create(string $timestampString): Timestamp

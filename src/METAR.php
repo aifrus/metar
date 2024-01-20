@@ -2,6 +2,7 @@
 
 namespace Aifrus\METAR;
 
+use Aifrus\METAR\Enums\ReportModifier;
 use Aifrus\METAR\Timestamp;
 use Aifrus\METAR\Enums\ReportType;
 use Aifrus\METAR\Exceptions\METARException;
@@ -13,12 +14,13 @@ class METAR
 	public ?ReportType $reportType = null;
 	public ?string $stationIdentifier = null;
 	public ?Timestamp $timestamp = null;
+	public ?ReportModifier $reportModifier = null;
 
 	public function __construct(string $reportString)
 	{
 		$this->reportString = trim($reportString);
 		$reportParts = explode(' ', $this->reportString);
-		$this->reportType = Parse::reportType($reportParts[0]);
+		$this->reportType = ReportType::create($reportParts[0]);
 		if ($this->reportType === ReportType::SPECI) array_shift($reportParts);
 		$this->stationIdentifier = $reportParts[0];
 		$this->timestamp = Timestamp::create($reportParts[1]);
