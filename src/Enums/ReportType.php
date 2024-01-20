@@ -12,9 +12,8 @@ enum ReportType: string
     public static function create(string $reportType): ReportType
     {
         return match ($reportType) {
-            'METAR' => ReportType::METAR,
             'SPECI' => ReportType::SPECI,
-            default => throw new METARException('Invalid report type'),
+            default => ReportType::METAR
         };
     }
 }
