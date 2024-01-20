@@ -13,6 +13,6 @@ class Parse
 
     public static function stationIdentifier(array $reportParts): string
     {
-        return $reportParts[0] === 'SPECI' ? $reportParts[1] : $reportParts[0];
+        return $reportParts[0];
     }
 }

@@ -17,6 +17,7 @@ class METAR
 		$this->reportString = trim($reportString);
 		$reportParts = explode(' ', $this->reportString);
 		$this->reportType = Parse::reportType($reportParts);
+		if ($this->reportType === ReportType::SPECI) array_shift($reportParts);
 		$this->stationIdentifier = Parse::stationIdentifier($reportParts);
 	}
 
