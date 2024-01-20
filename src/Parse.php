@@ -6,9 +6,13 @@ use Aifrus\METAR\Enums\ReportType;
 
 class Parse
 {
-    public static function reportType(string $reportString): ReportType
+    public static function reportType(array $reportParts): ReportType
     {
-        if (substr(trim($reportString), 0, 5) === 'SPECI') return ReportType::SPECI;
-        return ReportType::METAR;
+        return $reportParts[0] === 'SPECI' ? ReportType::SPECI : ReportType::METAR;
+    }
+
+    public static function stationIdentifier(array $reportParts): string
+    {
+        return $reportParts[0] === 'SPECI' ? $reportParts[1] : $reportParts[0];
     }
 }

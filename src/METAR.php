@@ -8,11 +8,16 @@ use RPurinton\HTTPS\HTTPSRequest;
 
 class METAR
 {
+	public ?string $reportString = null;
 	public ?ReportType $reportType = null;
+	public ?string $stationIdentifier = null;
 
-	public function __construct(public string $reportString)
+	public function __construct(string $reportString)
 	{
-		$this->reportType = Parse::reportType($this->reportString);
+		$this->reportString = trim($reportString);
+		$reportParts = explode(' ', $this->reportString);
+		$this->reportType = Parse::reportType($reportParts);
+		$this->stationIdentifier = Parse::stationIdentifier($reportParts);
 	}
 
 	public static function fetch(string $stationIdentifier): METAR
