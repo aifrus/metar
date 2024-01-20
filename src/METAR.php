@@ -2,12 +2,22 @@
 
 namespace Aifrus\METAR;
 
+use Aifrus\METAR\Enums\ReportType;
+use Aifrus\METAR\Exceptions\METARException;
 use RPurinton\HTTPS\HTTPSRequest;
 
 class METAR
 {
-	public static function fetch(string $ids): string
+	public ReportType $reportType = Parse::reportType($reportString);
+
+	public function __construct(public string $reportString)
 	{
-		return HTTPSRequest::fetch(['url' => 'https://metar.vatsim.net/' . $ids]);
+	}
+
+	public static function fetch(string $stationIdentifier): METAR
+	{
+		$reportString = HTTPSRequest::fetch(['url' => 'https://metar.vatsim.net/' . $stationIdentifier]);
+		if (empty($reportString)) throw new METARException('No METAR data found for ' . $stationIdentifier);
+		return new METAR($reportString);
 	}
 }
