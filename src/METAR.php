@@ -8,7 +8,7 @@ use RPurinton\HTTPS\HTTPSRequest;
 
 class METAR
 {
-	public ReportType $reportType = Parse::reportType($reportString);
+	public ReportType $reportType = Parse::reportType($this->reportString);
 
 	public function __construct(public string $reportString)
 	{
