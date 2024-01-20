@@ -24,6 +24,7 @@ class METAR
 		if ($this->reportType === ReportType::SPECI) array_shift($reportParts);
 		$this->stationIdentifier = $reportParts[0];
 		$this->timestamp = Timestamp::create($reportParts[1]);
+		$this->reportModifier = ReportModifier::create($reportParts[2]);
 	}
 
 	public static function fetch(string $stationIdentifier): METAR
