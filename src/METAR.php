@@ -46,4 +46,9 @@ class METAR
 		if (empty($reportString)) throw new METARException('No METAR data found for ' . $stationIdentifier);
 		return new METAR($reportString);
 	}
+
+	public function __toString(): string
+	{
+		return $this->reportString;
+	}
 }
