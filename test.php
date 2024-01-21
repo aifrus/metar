@@ -12,9 +12,8 @@ foreach ($all as $key => $line) {
     echo "\r$key/", count($all) . '...';
     try {
         $metar = new METAR($line);
-        if (in_array($metar->stationIdentifier, $interested)) {
-            echo "\n$metar\n";
-        }
+        if (in_array($metar->stationIdentifier, $interested)) echo "\n$metar\n";
+        if ($metar->winds->variableFrom) echo "\n$metar\n";
     } catch (\Exception $e) {
         echo "\nException: " . $e->getMessage() . "\nOn line: $line\n";
     }
