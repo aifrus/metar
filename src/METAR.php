@@ -28,7 +28,7 @@ class METAR
 		$this->timestamp = Timestamp::create(array_shift($reportParts));
 		$this->reportModifier = ReportModifier::create($reportParts[0]);
 		if ($this->reportModifier !== ReportModifier::NONE) array_shift($reportParts);
-		$this->winds = Winds::create(array_shift($reportParts));
+		$this->winds = Winds::create(array_shift($reportParts), $reportParts[0] ?? null);
 	}
 
 	public static function fetch(string $stationIdentifier): METAR
