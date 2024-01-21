@@ -19,7 +19,7 @@ class Winds
     public ?int $variableFrom = null;
     public ?int $variableTo = null;
 
-    public static function create(string $windString, string $nextString): Winds
+    public static function create(string $windString, ?string $nextString): Winds
     {
         return new Winds($windString, $nextString);
     }
