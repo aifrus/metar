@@ -1,6 +1,6 @@
 <?php
 
-namespace Aifrus\METAR;
+namespace Aifrus\METAR\Parts;
 
 use Aifrus\METAR\Exceptions\METARException;
 
@@ -16,8 +16,13 @@ class Winds
     public ?int $direction = null;
     public ?int $speed = null;
     public ?int $gust = null;
-    public ?int $variationFrom = null;
-    public ?int $variationTo = null;
+    public ?int $variableFrom = null;
+    public ?int $variableTo = null;
+
+    public static function create(string $windString, string $nextString): Winds
+    {
+        return new Winds($windString, $nextString);
+    }
 
     public function __construct(string $windString, ?string $nextString)
     {
@@ -61,9 +66,9 @@ class Winds
         if (!$nextString || !preg_match('/^(\d{3})V(\d{3})$/', $nextString, $matches)) return;
         $from = (int) $matches[1];
         $to = (int) $matches[2];
-        if ($from < self::MIN_DIRECTION || $from > self::MAX_DIRECTION || $to < self::MIN_DIRECTION || $to > self::MAX_DIRECTION) throw new METARException('Wind variation values must be between 0 and 360');
-        $this->variationFrom = $from;
-        $this->variationTo = $to;
+        if ($from < self::MIN_DIRECTION || $from > self::MAX_DIRECTION || $to < self::MIN_DIRECTION || $to > self::MAX_DIRECTION) throw new METARException('Wind variable values must be between 0 and 360');
+        $this->variableFrom = $from;
+        $this->variableTo = $to;
     }
 
     public function validate(): void
@@ -71,8 +76,8 @@ class Winds
         $this->validateRange($this->direction, self::MIN_DIRECTION, self::MAX_DIRECTION, 'Wind direction must be between 0 and 360');
         $this->validateRange($this->speed, self::MIN_DIRECTION, PHP_INT_MAX, 'Wind speed must be a positive integer');
         $this->validateRange($this->gust, self::MIN_DIRECTION, PHP_INT_MAX, 'Wind gust must be a positive integer');
-        $this->validateRange($this->variationFrom, self::MIN_DIRECTION, self::MAX_DIRECTION, 'Wind variation from must be between 0 and 360');
-        $this->validateRange($this->variationTo, self::MIN_DIRECTION, self::MAX_DIRECTION, 'Wind variation to must be between 0 and 360');
+        $this->validateRange($this->variableFrom, self::MIN_DIRECTION, self::MAX_DIRECTION, 'Wind variable from must be between 0 and 360');
+        $this->validateRange($this->variableTo, self::MIN_DIRECTION, self::MAX_DIRECTION, 'Wind variable to must be between 0 and 360');
     }
 
     private function validateRange(?int $value, int $min, int $max, string $errorMessage): void
@@ -80,11 +85,6 @@ class Winds
         if ($value !== null && ($value < $min || $value > $max)) {
             throw new METARException($errorMessage);
         }
-    }
-
-    public static function create(string $windString, string $nextString): Winds
-    {
-        return new Winds($windString, $nextString);
     }
 
     public function __toString(): string
