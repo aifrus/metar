@@ -7,7 +7,7 @@ use RPurinton\HTTPS\HTTPSRequest;
 
 $all = explode("\n", HTTPSRequest::fetch(['url' => 'https://metar.vatsim.net/ALL']));
 foreach ($all as $key => $line) {
-    echo "\r$key/", count($all) . " $line";
+    echo "\r$key/", count($all) . '...';
     try {
         new METAR($line);
     } catch (\Exception $e) {
