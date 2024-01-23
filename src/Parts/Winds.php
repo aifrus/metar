@@ -68,7 +68,12 @@ class Winds
 
     private function parseNextString(?string $nextString): void
     {
-        if (!$nextString || !preg_match('/^(\d{3})V(\d{3})$/', $nextString, $matches)) return $this->variableRange = false;
+        if (!$nextString || !preg_match('/^(\d{3})V(\d{3})$/', $nextString, $matches)) {
+            $this->variableRange = false;
+            $this->variableFrom = null;
+            $this->variableTo = null;
+            return;
+        }
         $from = (int) $matches[1];
         $to = (int) $matches[2];
         if ($from < self::MIN_DIRECTION || $from > self::MAX_DIRECTION || $to < self::MIN_DIRECTION || $to > self::MAX_DIRECTION) throw new METARException('Wind variable values must be >= 0 and < 360');
