@@ -85,7 +85,7 @@ class Winds
 
     public function validate(): void
     {
-        $this->validateRange($this->direction, self::MIN_DIRECTION, self::MAX_DIRECTION, 'Wind direction must be between 0 and 360');
+        $this->validateRange($this->direction->asInt, self::MIN_DIRECTION, self::MAX_DIRECTION, 'Wind direction must be between 0 and 360');
         $this->validateRange($this->speed, self::MIN_DIRECTION, PHP_INT_MAX, 'Wind speed must be a positive integer');
         $this->validateRange($this->gust, self::MIN_DIRECTION, PHP_INT_MAX, 'Wind gust must be a positive integer');
         $this->validateRange($this->variableFrom, self::MIN_DIRECTION, self::MAX_DIRECTION, 'Wind variable from must be between 0 and 360');
