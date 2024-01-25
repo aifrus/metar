@@ -1,6 +1,6 @@
 {
     "name": "aifrus/metar",
-    "description": "Abstract class for fetching METAR weather data from VATSIM",
+    "description": "Generic METAR weather data class (PHP w/Composer)",
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -14,8 +14,5 @@
             "email": "russell.purinton@gmail.com"
         }
     ],
-    "require": {
-        "rpurinton/https": "^1.0"
-    },
-    "version": "0.1.0"
+    "version": "0.2.0"
 }

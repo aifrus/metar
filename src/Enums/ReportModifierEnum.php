@@ -18,4 +18,9 @@ enum ReportModifierEnum: string
             default => self::NONE
         };
     }
+
+    public static function isA(string $reportModifier): bool
+    {
+        return in_array($reportModifier, self::cases());
+    }
 }

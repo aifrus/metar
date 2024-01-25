@@ -4,46 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0345a200f8f248fd02c5fb8dcf0ffd8b",
-    "packages": [
-        {
-            "name": "rpurinton/https",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rpurinton/https.git",
-                "reference": "cfab165e9b79440b479455e21572b3c26680b358"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rpurinton/https/zipball/cfab165e9b79440b479455e21572b3c26680b358",
-                "reference": "cfab165e9b79440b479455e21572b3c26680b358",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "RPurinton\\HTTPS\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Russell Purinton",
-                    "email": "russell.purinton@gmail.com"
-                }
-            ],
-            "description": "Abstract Static Class for making HTTPS Requests in PHP/Composer",
-            "support": {
-                "issues": "https://github.com/rpurinton/https/issues",
-                "source": "https://github.com/rpurinton/https/tree/1.0.0"
-            },
-            "time": "2024-01-20T10:21:41+00:00"
-        }
-    ],
+    "content-hash": "77303afaf6b399a2b476818cbbf46239",
+    "packages": [],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
