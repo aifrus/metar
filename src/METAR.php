@@ -18,6 +18,7 @@ class METAR
 	public ?Timestamp $timeStamp = null;
 	public ?ReportModifier $reportModifier = null;
 	public ?Winds $winds = null;
+	public ?bool $requiresMaintenance = null;
 
 	public static function create(string $reportString): METAR
 	{
@@ -37,7 +38,8 @@ class METAR
 		if (ReportModifierEnum::isA($reportParts[0])) $this->reportModifier = ReportModifier::create(array_shift($reportParts));
 		if (!$this->reportModifier) $this->reportModifier = ReportModifier::create('NONE');
 		$this->winds = Winds::create(array_shift($reportParts), $reportParts[0] ?? null);
-		if ($this->winds->variableFrom) array_shift($reportParts);
+		if ($this->winds->variableRange) array_shift($reportParts);
+		$this->requiresMaintenance = substr($this->reportString, -1) === '$';
 	}
 
 	public function __toString(): string

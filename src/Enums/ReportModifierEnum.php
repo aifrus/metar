@@ -21,6 +21,7 @@ enum ReportModifierEnum: string
 
     public static function isA(string $reportModifier): bool
     {
-        return in_array($reportModifier, self::cases());
+        foreach (self::cases() as $case) $cases[] = $case->value;
+        return in_array($reportModifier, $cases);
     }
 }
