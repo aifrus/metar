@@ -23,25 +23,25 @@ class Direction
         return new self($directionInput);
     }
 
-    public function __construct(public int|float|string|null $directionInput)
+    public function __construct(int|float|string|null $directionInput)
     {
-        $this->validate();
-        $this->asInt = (int) $this->directionInput;
-        $this->asFloat = (float) $this->directionInput;
-        $this->asString = $this->directionInput;
+        $this->validate($directionInput);
+        $this->asInt = (int) $directionInput;
+        $this->asFloat = (float) $directionInput;
+        $this->asString = (string) $directionInput;
         $this->asCardinal4 = Cardinal4::fromValue($this->asFloat);
         $this->asCardinal8 = Cardinal8::fromValue($this->asFloat);
         $this->asCardinal16 = Cardinal16::fromValue($this->asFloat);
     }
 
-    private function validate(): void
+    private function validate(int|float|string|null $directionInput): void
     {
-        if (!is_numeric($this->directionInput)) throw new METARException('Direction must be numeric');
-        if ($this->directionInput < 0 || $this->directionInput > 360) throw new METARException('Direction must be between 0 and 360');
+        if (!is_numeric($directionInput)) throw new METARException('Direction must be numeric');
+        if ($directionInput < 0 || $directionInput > 360) throw new METARException('Direction must be greater than or equal to 0 and less than 360');
     }
 
     public function __toString(): string
     {
-        return $this->directionInput;
+        return $this->asString;
     }
 }
