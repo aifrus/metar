@@ -31,7 +31,6 @@ enum Cardinal4: string
         }
         return $ranges;
     }
-
     public static function fromValue(int|float|string|null $value): self
     {
         if (is_null($value)) {
@@ -43,11 +42,11 @@ enum Cardinal4: string
             foreach (self::getDirectionRanges() as $direction => $range) {
                 if ($range['from'] > $range['to']) { // This is the case for North
                     if (($value >= $range['from'] && $value < 360) || ($value >= 0 && $value < $range['to'])) {
-                        return self::$direction();
+                        return self::from($direction);
                     }
                 } else {
                     if ($value >= $range['from'] && $value < $range['to']) {
-                        return self::$direction();
+                        return self::from($direction);
                     }
                 }
             }
