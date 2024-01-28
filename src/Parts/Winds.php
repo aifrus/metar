@@ -12,7 +12,6 @@ class Winds
     public const UNKNOWN_WIND = '/////KT';
     public const VARIABLE_WIND = 'VRB';
 
-    public ?string $windString = null;
     public ?bool $variable = null;
     public ?Direction $direction = null;
     public ?int $speed = null;
@@ -28,17 +27,13 @@ class Winds
 
     public function __construct(string $windString, ?string $nextString)
     {
-        $this->windString = $windString;
-
         $this->parseWindString($windString);
         $this->parseNextString($nextString);
-
-        $this->validate();
     }
 
     private function parseWindString(string $windString): void
     {
-        if (strpos($windString, 'KT') === false) throw new METARException('Wind string must contain KT');
+        if (substr($windString, -2) !== 'KT') throw new METARException('Wind string must end with KT');
         $windString = str_replace('KT', '', $windString);
 
         if ($windString === self::UNKNOWN_WIND) {
@@ -81,22 +76,6 @@ class Winds
         $this->variableRange = true;
         $this->variableFrom = Direction::create($from);
         $this->variableTo = Direction::create($to);
-    }
-
-    public function validate(): void
-    {
-        $this->validateRange($this->direction?->asInt, self::MIN_DIRECTION, self::MAX_DIRECTION, 'Wind direction must be between 0 and 360');
-        $this->validateRange($this->speed, self::MIN_DIRECTION, PHP_INT_MAX, 'Wind speed must be a positive integer');
-        $this->validateRange($this->gust, self::MIN_DIRECTION, PHP_INT_MAX, 'Wind gust must be a positive integer');
-        $this->validateRange($this->variableFrom?->asInt, self::MIN_DIRECTION, self::MAX_DIRECTION, 'Wind variable from must be between 0 and 360');
-        $this->validateRange($this->variableTo?->asInt, self::MIN_DIRECTION, self::MAX_DIRECTION, 'Wind variable to must be between 0 and 360');
-    }
-
-    private function validateRange(?int $value, int $min, int $max, string $errorMessage): void
-    {
-        if ($value !== null && ($value < $min || $value > $max)) {
-            throw new METARException($errorMessage);
-        }
     }
 
     public function __toString(): string
