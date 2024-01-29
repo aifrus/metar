@@ -95,4 +95,27 @@ class Winds
         $windString .= 'KT';
         return $windString;
     }
+
+    public function crossWinds(int $heading)
+    {
+        $direction = $this->variableRange ? ($this->variableFrom->asFloat + $this->variableTo->asFloat) / 2 : $this->direction->asFloat;
+        $speed = $this->gust ?? $this->speed;
+
+        $angle = ($heading - $direction + 360) % 360;
+
+        $headwind = $speed * cos(deg2rad($angle));
+        $crosswind = $speed * sin(deg2rad($angle));
+
+        $tolerance = 1e-10;
+        if (abs($crosswind) < $tolerance) {
+            $crosswind = 0;
+        }
+
+        return [
+            'head' => $headwind,
+            'right' => $crosswind * -1,
+            'left' => $crosswind,
+            'tail' => $headwind * -1,
+        ];
+    }
 }
