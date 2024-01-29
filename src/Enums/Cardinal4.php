@@ -27,7 +27,7 @@ enum Cardinal4: string
     {
         foreach (self::cases() as $case) {
             $heading = self::getHeading($case);
-            $ranges[$case->value] = ['from' => ($heading - 45) % 360, 'to' => ($heading + 45) % 360];
+            $ranges[$case->value] = ['from' => ($heading + 315) % 360, 'to' => ($heading + 45) % 360];
         }
         return $ranges;
     }

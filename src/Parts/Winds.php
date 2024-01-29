@@ -20,7 +20,7 @@ class Winds
     public ?Direction $variableFrom = null;
     public ?Direction $variableTo = null;
 
-    public static function create(string $windString, ?string $nextString): Winds
+    public static function create(string $windString, ?string $nextString = null): Winds
     {
         return new Winds($windString, $nextString);
     }

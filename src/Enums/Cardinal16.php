@@ -51,7 +51,7 @@ enum Cardinal16: string
     {
         foreach (self::cases() as $case) {
             $heading = self::getHeading($case);
-            $ranges[$case->value] = ['from' => ($heading - 11.25) % 360, 'to' => ($heading + 11.25) % 360];
+            $ranges[$case->value] = ['from' => ($heading + 348.75) % 360, 'to' => ($heading + 11.25) % 360];
         }
         return $ranges;
     }
@@ -65,8 +65,14 @@ enum Cardinal16: string
         if (is_numeric($value)) {
             $value = floatval($value);
             foreach (self::getDirectionRanges() as $direction => $range) {
-                if ($value >= $range['from'] && $value < $range['to']) {
-                    return self::from($direction);
+                if ($range['from'] > $range['to']) { // This is the case for North
+                    if (($value >= $range['from'] && $value < 360) || ($value >= 0 && $value < $range['to'])) {
+                        return self::from($direction);
+                    }
+                } else {
+                    if ($value >= $range['from'] && $value < $range['to']) {
+                        return self::from($direction);
+                    }
                 }
             }
         }
