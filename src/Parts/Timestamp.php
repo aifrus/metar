@@ -10,6 +10,7 @@ class Timestamp
     public ?int $day = null;
     public ?int $hour = null;
     public ?int $minute = null;
+    public ?int $age = null;
 
     public static function create(string $timestampString): self
     {
@@ -23,6 +24,7 @@ class Timestamp
         $this->hour = (int) substr($timestampString, 2, 2);
         $this->minute = (int) substr($timestampString, 4, 2);
         $this->validate();
+        $this->age = $this->getAge();
     }
 
     private function validate(): void
@@ -35,5 +37,13 @@ class Timestamp
     public function __toString(): string
     {
         return $this->timestampString;
+    }
+
+    public function getAge(): int
+    {
+        $now = new \DateTime('now', new \DateTimeZone('UTC'));
+        $timestamp = new \DateTime($now->format('Y-m') . '-' . $this->day . ' ' . $this->hour . ':' . $this->minute . ':00', new \DateTimeZone('UTC'));
+        if ($timestamp > $now) $timestamp->modify('-1 month');
+        return round(($now->getTimestamp() - $timestamp->getTimestamp()) / 60, 0);
     }
 }
