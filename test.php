@@ -61,8 +61,8 @@ class FlightCostCalculator
         $this->sub_total += $this->wgt_fee;
         $this->mil_price = round($this->length * 6.25, 0);
         $this->sub_total += $this->mil_price;
-        $this->minutes = round(($this->length / 480) * 60, 0);
-        $this->time_price = round($this->minutes * 3.5, 0) + 30;
+        $this->minutes = round(($this->length / 480) * 60, 0) + 30;
+        $this->time_price = round($this->minutes * 3.5, 0);
         $this->sub_total += $this->time_price;
         $this->airport_fees = 2 * 100; // 2 @ $100 ea
         $this->sub_total += $this->airport_fees;
@@ -97,7 +97,7 @@ class FlightCostCalculator
         printf($format, "Base Fare", "1", "$500.00", $this->dollars($this->base_fare), $this->dollars($this->base_fare));
 
         $this->sub_total = $this->base_fare + $this->wgt_fee;
-        printf($format, "Weight Fee", $this->thousands($this->total_wgt) . " LBS", "$0.15", $this->dollars($this->wgt_fee), $this->dollars($this->sub_total));
+        printf($format, "Weight Fee", $this->thousands($this->total_wgt) . " LBS", "$0.25", $this->dollars($this->wgt_fee), $this->dollars($this->sub_total));
 
         $this->sub_total += $this->mil_price;
         printf($format, "Distance", $this->thousands($this->length) . " NM", "$6.25", $this->dollars($this->mil_price), $this->dollars($this->sub_total));
