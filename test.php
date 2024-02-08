@@ -109,7 +109,7 @@ class FlightCostCalculator
         printf($format, "Airport Fees", "2", "$100.00", $this->dollars($this->airport_fees), $this->dollars($this->sub_total));
 
         $this->sub_total += $this->excise_tax;
-        printf($format, "Excise Tax", "1", $this->dollars($this->excise_tax), $this->dollars($this->excise_tax), $this->dollars($this->sub_total));
+        printf($format, "Excise Tax", $this->sub_total - $this->excise_tax, "7.5%", $this->dollars($this->excise_tax), $this->dollars($this->sub_total));
 
 
         printf(
