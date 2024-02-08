@@ -93,7 +93,7 @@ class FlightCostCalculator
         printf("Weight Fee\t|%s LBS\t|$0.15\t\t|%s\t|%s\n",
             $this->thousands($this->total_wgt), $this->dollars($this->wgt_fee), $this->dollars($this->sub_total));
 
-        printf("Distance\t|%s NM\t|$6.25\t\t|%s\t|%s\n",
+        printf("Distance\t|%s NM \t|$6.25\t\t|%s\t|%s\n",
             $this->thousands($this->length), $this->dollars($this->mil_price), $this->dollars($this->sub_total));
 
         printf("Time\t\t|%s\t|%s\n",
