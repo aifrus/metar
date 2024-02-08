@@ -56,7 +56,7 @@ class FlightCostCalculator
     {
         $this->base_fare = 500;
         $this->sub_total = $this->base_fare;
-        $this->wgt_fee = round($this->total_wgt * 0.15, 0);
+        $this->wgt_fee = round($this->total_wgt * 0.25, 0);
         $this->sub_total += $this->wgt_fee;
         $this->mil_price = round($this->length * 6.25, 0);
         $this->sub_total += $this->mil_price;
@@ -98,7 +98,7 @@ class FlightCostCalculator
             $this->dollars($this->base_fare)
         );
 
-        $this->sub_total += $this->wgt_fee;
+        $this->sub_total = $this->base_fare + $this->wgt_fee;
         printf(
             "Weight Fee\t|%s LBS\t|$0.15\t\t|%s\t|%s\n",
             $this->thousands($this->total_wgt),
