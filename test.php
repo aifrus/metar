@@ -116,7 +116,7 @@ class FlightCostCalculator
 
         $this->sub_total += $this->time_price;
         printf(
-            "Time\t\t|%s Min\t|$3.50\t\t|%s\t|%s\n",
+            "Time\t\t|%s Min \t|$3.50\t\t|%s\t|%s\n",
             $this->minutes,
             $this->dollars($this->time_price),
             $this->dollars($this->sub_total)
