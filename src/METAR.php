@@ -21,10 +21,10 @@ class METAR
 
 	public static function create(string $reportString): self
 	{
-		return (new self)->fill($reportString);
+		return (new self)->parse($reportString);
 	}
 
-	public function fill(string $reportString): self
+	public function parse(string $reportString): self
 	{
 		$this->reportString = trim($reportString);
 		$reportParts = explode(' ', $this->reportString);
