@@ -69,7 +69,7 @@ class FlightCostCalculator
         $this->excise_tax = round($this->sub_total * 0.075, 0);
         $this->pax_total = $this->sub_total + $this->excise_tax;
         $this->uber_fee = round($this->pax_total * 0.1, 0);
-        $this->pilot_pay = round($this->pax_total - $this->uber_fee, 0);
+        $this->pilot_pay = round($this->pax_total - $this->uber_fee - $this->airport_fees - $this->excise_tax, 0);
     }
 
     private function dollars($in)
@@ -120,13 +120,13 @@ class FlightCostCalculator
         printf(
             "Airport Fees\t|%s\t|%s\n",
             $this->dollars($this->airport_fees),
-            $this->dollars($this->pax_total)
+            $this->dollars($this->pax_total - $this->airport_fees)
         );
 
         printf(
             "Excise Tax\t|%s\t|%s\n",
             $this->dollars($this->excise_tax),
-            $this->dollars($this->pax_total)
+            $this->dollars($this->pax_total - $this->excise_tax - $this->airport_fees)
         );
 
         printf(
