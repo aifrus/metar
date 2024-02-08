@@ -92,51 +92,25 @@ class FlightCostCalculator
             $this->thousands($this->total_wgt)
         );
 
-        printf("Item\t\t|Qty.\t\t|Ea.\t\t|Amount\t\t|Total\n");
-        printf(
-            "Base Fare\t|1\t\t|$500.00\t|%s\t|%s\n",
-            $this->dollars($this->base_fare),
-            $this->dollars($this->base_fare)
-        );
+        $format = "%-15s|%-15s|%-15s|%-15s|%-15s\n";
+        printf($format, "Item", "Qty.", "Ea.", "Amount", "Total");
+        printf($format, "Base Fare", "1", "$500.00", $this->dollars($this->base_fare), $this->dollars($this->base_fare));
 
         $this->sub_total = $this->base_fare + $this->wgt_fee;
-        printf(
-            "Weight Fee\t|%s LBS\t|$0.15\t\t|%s\t|%s\n",
-            $this->thousands($this->total_wgt),
-            $this->dollars($this->wgt_fee),
-            $this->dollars($this->sub_total)
-        );
+        printf($format, "Weight Fee", $this->thousands($this->total_wgt) . " LBS", "$0.15", $this->dollars($this->wgt_fee), $this->dollars($this->sub_total));
 
         $this->sub_total += $this->mil_price;
-        printf(
-            "Distance\t|%s NM \t|$6.25\t\t|%s\t|%s\n",
-            $this->thousands($this->length),
-            $this->dollars($this->mil_price),
-            $this->dollars($this->sub_total)
-        );
+        printf($format, "Distance", $this->thousands($this->length) . " NM", "$6.25", $this->dollars($this->mil_price), $this->dollars($this->sub_total));
 
         $this->sub_total += $this->time_price;
-        printf(
-            "Time\t\t|%s Min \t|$3.50\t\t|%s\t|%s\n",
-            $this->minutes,
-            $this->dollars($this->time_price),
-            $this->dollars($this->sub_total)
-        );
+        printf($format, "Time", $this->minutes . " Min", "$3.50", $this->dollars($this->time_price), $this->dollars($this->sub_total));
 
         $this->sub_total += $this->airport_fees;
-        printf(
-            "Airport Fees\t|2\t\t|$100.00\t|%s\t|%s\n",
-            $this->dollars($this->airport_fees),
-            $this->dollars($this->sub_total)
-        );
+        printf($format, "Airport Fees", "2", "$100.00", $this->dollars($this->airport_fees), $this->dollars($this->sub_total));
 
         $this->sub_total += $this->excise_tax;
-        printf(
-            "Excise Tax\t|1\t\t|%s\t|%s\t|%s\n",
-            $this->dollars($this->excise_tax),
-            $this->dollars($this->excise_tax),
-            $this->dollars($this->sub_total)
-        );
+        printf($format, "Excise Tax", "1", $this->dollars($this->excise_tax), $this->dollars($this->excise_tax), $this->dollars($this->sub_total));
+
 
         printf(
             "\nPassenger Total Cost:\t%s\n\n",
